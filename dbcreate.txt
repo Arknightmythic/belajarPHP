@@ -1,0 +1,18 @@
+use jewepe;
+CREATE TABLE user (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role varchar(25),(optional)
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE artikel (
+  id_artikel INT AUTO_INCREMENT PRIMARY KEY,
+  judul VARCHAR(60),
+  isi TEXT,
+  gambar BLOB,
+  tanggal_buat DATE,
+  tanggal_update DATE,
+  status VARCHAR(25)
+);
