@@ -8,7 +8,7 @@ $judul = $_POST['judul'];
 $isi = $_POST['isi'];
 $gambar = $_FILES['gambar'];
 $status = $_POST['status'];
-
+$nama_file = $_FILES['gambar']['name'];
 // Validasi input
 if (empty($judul) || empty($isi)) {
   echo "Judul dan isi artikel tidak boleh kosong.";
@@ -34,15 +34,14 @@ if (!empty($gambar)) {
   }
 
   // Pindahkan gambar ke folder penyimpanan
-  $nama_gambar = time() . "." . $ekstensi_gambar;
-  move_uploaded_file($gambar['tmp_name'], 'img/' . $nama_gambar);
+  move_uploaded_file($gambar['tmp_name'], 'img/' . $nama_file);
 } else {
-  $nama_gambar = '';
+  $nama_file = '';
 }
 
 // Siapkan query SQL
 $query = "INSERT INTO artikel (judul, isi, gambar, tanggal_buat, tanggal_update, status)
-VALUES ('$judul', '$isi', '$nama_gambar', CURRENT_DATE, NULL, '$status')";
+VALUES ('$judul', '$isi', '$nama_file', CURRENT_DATE, NULL, '$status')";
 
 // Eksekusi query SQL
 $hasil = mysqli_query($link, $query);
