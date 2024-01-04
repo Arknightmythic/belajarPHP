@@ -60,20 +60,10 @@
  class="form-group">
  
      
- <label
-  
- for="gambar">Gambar</label>
+ <label for="gambar">Gambar</label>
  
      
- <input
-  
- type="file"
-  
- class="form-control-file"
-  
- id="gambar"
-  
- name="gambar">
+ <input type="file" class="form-control-file" id="gambar" name="gambar">
  
    
  </div>
@@ -105,7 +95,7 @@
    
  </div>
  
-   
+    
  <button
   
  type="submit"

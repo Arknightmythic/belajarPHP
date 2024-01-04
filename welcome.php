@@ -24,13 +24,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
 
       <div class="col-md-3 text-end">
-        <a href="insert.php"><button type="button" class="btn btn-outline-dark me-2">Tambah</button></a>
-        <a href="logout.php"><button type="button" class="btn btn-dark">Logout</button></a>
+        <a href="./insert2.php"><button type="button" class="btn btn-outline-dark me-2">Tambah</button></a>
+        <a href="./logout.php"><button type="button" class="btn btn-dark">Logout</button></a>
+        
       </div>
     </header>
   </div>
   <div class="text-center">
-    <h3 class="mt-5 mb-0 my-auto">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h3>
+    <h3 class="mt-5 mb-0 my-auto">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to your workbench.</h3>
+    
   </div>
     
     <div class="album py-5">
@@ -51,6 +53,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         if ($hasil) {
           // Jika berhasil, tampilkan data artikel
           while ($data = mysqli_fetch_array($hasil)) {
+            if(empty($data['tanggal_update']) && is_null($data['tanggal_update'])){
+              $waktu=$data['tanggal_buat'];
+            }else{
+              $waktu=$data['tanggal_update'];
+            }
             // Tampilkan gambar artikel
             if ($data['gambar'] != '') {
               echo              '<div class="col">';
@@ -61,10 +68,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               echo                    '<p class="card-text">' . $data['isi'] . '</p>';
               echo                    '<div class="d-flex justify-content-between align-items-center">';
               echo                      '<div class="btn-group">';
-              echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">View</button>';
-              echo                        '<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>';
+              echo                        '<a href="delete.php?id='. $data['id_artikel'].'"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>';
+              echo                        '<a href="editview.php?id='. $data['id_artikel'].'"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>';
               echo                      '</div>';
-              echo                      '<small class="text-body-secondary">9 mins</small>';
+              echo                      '<small class="text-body-secondary">'.$waktu.'</small>';
               echo                    '</div>';
               echo                  '</div>';
               echo                '</div>';
@@ -76,7 +83,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
         } else {
           // Jika gagal, tampilkan pesan kesalahan
-          echo "Gagal menampilkan isi mading.";
+          echo '<h5 class="mt-5 mb-0 my-auto">Tidak ada artikel disini.</h5>';
         }
         ?>
       

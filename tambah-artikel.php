@@ -49,10 +49,11 @@ $hasil = mysqli_query($link, $query);
 // Cek hasil eksekusi query
 if ($hasil) {
   // Jika berhasil, tampilkan pesan keberhasilan
-  echo "Artikel berhasil ditambahkan.";
+  header("location: welcome.php");
 } else {
   // Jika gagal, tampilkan pesan kesalahan
   echo "Gagal menambahkan artikel.";
 }
 
 ?>
+
