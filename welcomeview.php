@@ -24,14 +24,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
 
       <div class="col-md-3 text-end">
-        <a href="./add.php"><button type="button" class="btn btn-outline-dark me-2">Tambah</button></a>
         <a href="./logout.php"><button type="button" class="btn btn-dark">Logout</button></a>
         
       </div>
     </header>
   </div>
   <div class="text-center">
-    <h3 class="mt-5 mb-0 my-auto">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to your workbench.</h3>
+    <h3 class="mt-5 mb-0 my-auto">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. berikut informasi terkini</h3>
     
   </div>
     
@@ -46,7 +45,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         // Deklarasi variabel
 
         // Siapkan query SQL
-        $query = "SELECT * FROM artikel";
+        $query = "SELECT * FROM artikel WHERE status = 'Publish'";
         $hasil = mysqli_query($link, $query);
 
         // Cek hasil eksekusi query
@@ -63,18 +62,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
               echo              '<div class="col">';
               echo                '<div class="card shadow-sm">';
               echo                '<img class="bd-placeholder-img card-img-top" src="img/' . $data['gambar'] . '" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>';
-              echo                 '<div class="card-body">';
+              echo                 '<div class="card-body h-50">';
               echo                    "<h2>" . $data['judul'] . "</h2>";
-              echo                    '<p class="card-text">' . $data['isi'] . '</p>';
+              echo                    '<p class="card-text">' . substr($data['isi'], 0, 150) . '...' . '</p>';
               echo                    '<div class="d-flex justify-content-between align-items-center">';
               echo                      '<div class="btn-group">';
-              echo                        '<a href="delete.php?id='. $data['id_artikel'].'"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>';
-              echo                        '<a href="editview.php?id='. $data['id_artikel'].'"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>';
+              echo                        '<a href="detail.php?id='. $data['id_artikel'].'"><button type="button" class="btn btn-sm btn-outline-secondary">Detail</button></a>';
               echo                      '</div>';
-              echo                      '<div class>';
-              echo                        '<small class="text-body-secondary">'.$data["status"].' &nbsp; </small>';
-              echo                        '<small class="text-body-secondary">'.$waktu.'</small>';
-              echo                      '</div>';
+              echo                      '<small class="text-body-secondary">'.$waktu.'</small>';
               echo                    '</div>';
               echo                  '</div>';
               echo                '</div>';
